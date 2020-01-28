@@ -1,5 +1,5 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from "react";
+import ReactDOM from "react-dom";
 
 const Header = props => {
   console.log(props);
@@ -10,59 +10,56 @@ const Header = props => {
   );
 };
 
-const Part = props => {
-  console.log(props);
+const Content = ({ parts }) => {
+  console.log(parts);
+
+  return parts.map(({ name, exercises }) => (
+    <p>
+      {name} {exercises}
+    </p>
+  ));
+};
+
+const Total = ({ parts }) => {
+  console.log(parts);
+
+  const reducer = (accumulator, currentValue) => accumulator + currentValue;
   return (
     <p>
-      {props.part} {props.exercises}
+      Number of exercises{" "}
+      {[
+        parts[0].exercises,
+        parts[1].exercises,
+        parts[2].exercises
+      ].reduce(reducer)}
     </p>
   );
 };
 
-const Content = props => {
-  console.log(props);
-  return (
-    <div>
-     <Part part={props.part1} exercises={props.exercises1} />
-      <Part part={props.part2} exercises={props.exercises2} />
-      <Part part={props.part3} exercises={props.exercises3} />
-    </div>
-  );
-};
-
-const Total = props => {
-  console.log(props);
-  return (
-    <div>
-      <p>Number of exercises {props.total}</p>
-    </div>
-  );
-};
-
-
 const App = () => {
-  // const-definitions
-  const course = 'Half Stack application development'
-  const part1 = {
-    name: 'Fundamentals of React',
-    exercises: 10
-  }
-  const part2 = {
-    name: 'Using props to pass data',
-    exercises: 7
-  }
-  const part3 = {
-    name: 'State of a component',
-    exercises: 14
-  }
+  const course = "Half Stack application development";
+  const parts = [
+    {
+      name: "Fundamentals of React",
+      exercises: 10
+    },
+    {
+      name: "Using props to pass data",
+      exercises: 7
+    },
+    {
+      name: "State of a component",
+      exercises: 14
+    }
+  ];
 
   return (
     <div>
       <Header course={course} />
-      <Content part1={part1.name}  part2={part2.name} part3={part3.name} exercises1={part1.exercises} exercises2={part2.exercises} exercises3={part3.exercises}/>
-      <Total total={part1.exercises + part2.exercises + part3.exercises} />
+      <Content parts={parts} />
+      <Total parts={parts} />
     </div>
-  )
-}
+  );
+};
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(<App />, document.getElementById("root"));
