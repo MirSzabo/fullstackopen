@@ -4,9 +4,17 @@ import ReactDOM from 'react-dom'
 const App = (props) => {
   const [selected, setSelected] = useState(0)
 
+  const changeAnecdote = () => {
+    setSelected([
+      ...todos,
+      { id: `${getNewId()}`, description: "random text", completed: false }
+    ]);
+  };
+
   return (
     <div>
       {props.anecdotes[selected]}
+      <button onClick={() => changeAnecdote()}>Next anecdote</button>
     </div>
   )
 }
