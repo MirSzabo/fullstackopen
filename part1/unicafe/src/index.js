@@ -15,11 +15,10 @@ const Button = ({ setGood, setNeutral, setBad }) => {
 
 const Statistic = ({ text, value }) => {
   return (
-    <div>
-      <p>
-        {text}: {value}
-      </p>
-    </div>
+          <tr>
+            <td>{text}:</td>
+            <td>{value}</td>
+          </tr>
   );
 };
 
@@ -30,14 +29,14 @@ const Statistics = ({ good, neutral, bad }) => {
 
   if (all > 0) {
     return (
-      <div>
+      <Table>
         <Statistic text="good" value={good} />
         <Statistic text="neutral" value={neutral} />
         <Statistic text="bad" value={bad} />
         <Statistic text="all" value={all} />
         <Statistic text="average" value={average} />
         <Statistic text="positive" value={positive} />
-      </div>
+      </Table>
     );
   } else {
     return (
@@ -47,6 +46,18 @@ const Statistics = ({ good, neutral, bad }) => {
     );
   }
 };
+
+const Table = (props) => {
+  return (
+    <div>
+      <table>
+        <tbody>
+          {props.children}
+        </tbody>
+      </table>
+    </div>
+  )
+}
 
 const App = () => {
   const [good, setGood] = useState(0);
