@@ -13,6 +13,10 @@ const App = props => {
     console.log("vote");
   };
 
+
+const startArray = Array(anecdotes.length).fill(0)
+console.log(startArray)
+
   /*const points = [1, 4, 6, 3]
 
 const copy = [...points]
