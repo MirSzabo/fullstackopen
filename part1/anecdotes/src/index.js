@@ -2,36 +2,32 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 
 const App = props => {
+  const startArray = Array(anecdotes.length).fill(0);
   const [selected, setSelected] = useState(0);
-  const [votes, setVotes] = useState(0);
+  const [votes, setVotes] = useState(startArray);
 
   const changeAnecdote = () => {
-    setSelected(Math.floor(Math.random() * 5));
+    setSelected(Math.floor(Math.random() * anecdotes.length));
   };
 
   const voteForAnecdote = () => {
-    console.log("vote");
+    const copy = [...votes]
+    copy[selected] += 1;
+    setVotes(copy);
   };
 
-
-const startArray = Array(anecdotes.length).fill(0)
-console.log(startArray)
-
-  /*const points = [1, 4, 6, 3]
-
-const copy = [...points]
-// increment the value in position 2 by one
-copy[2] += 1 */
+  const maxVotes = Math.max(...votes);
+  const maxVotesAnecdote = votes.indexOf(maxVotes);
 
   return (
     <div>
       <h1>Anecdote of the day</h1>
       <p>{props.anecdotes[selected]}</p>
-      <p>has {votes} votes</p>
+      <p>has {votes[selected]} votes</p>
       <button onClick={voteForAnecdote}>Vote</button>
       <button onClick={changeAnecdote}>Next anecdote</button>
       <h1>Anecdote with most votes</h1>
-
+      {( maxVotes ) ? <p>{props.anecdotes[maxVotesAnecdote]}</p>: ""}
     </div>
   );
 };
