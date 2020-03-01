@@ -20,7 +20,7 @@ const Course = ({ courses }) => {
     return courses.map(course => (
       <div key={course.id}>
         <h2>{course.name}</h2>
-        <ul>{course.parts.map(part => <li key={part.id}>{part.name} {part.exercises}</li>)}</ul>
+        <ul>{course.parts.map(part => <li key={part.id} >{part.name} {part.exercises}</li>)}</ul>
         <h3>total of {course.parts.reduce((acc, part) => {
       return acc + part.exercises;}, 0)} exercises</h3>
       </div>
