@@ -5,7 +5,7 @@ const App = () => {
   const [persons, setPersons] = useState([{ name: "Arto Hellas" }]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
- // const [showAll, setShowAll] = useState(true);
+  const [showAll, setShowAll] = useState(true);
 
   const addPerson = event => {
     event.preventDefault();
