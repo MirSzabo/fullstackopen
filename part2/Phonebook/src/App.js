@@ -40,7 +40,7 @@ const App = () => {
       <div>filter shown with <input value={showFiltered} onChange={setShowFiltered} /></div>
       <form onSubmit={addPerson}>
         <div>
-          name: <input value={newName} onChange={handlePersonChange} />
+          name is: <input value={newName} onChange={handlePersonChange} />
         </div>
         <div>
           number: <input value={newNumber} onChange={handleNumberChange} />
