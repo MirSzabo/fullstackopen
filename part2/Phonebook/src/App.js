@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, createContext } from "react";
 import Person from "./components/Person";
+import SearchField from "./components/SearchField";
+
+export const userListContext = createContext();
 
 const App = () => {
   const [persons, setPersons] = useState([{ name: "Arto Hellas" }]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
-  const [showFiltered, setShowFiltered] = useState("");
+  const [input, setInput] = useState("");
 
   const addPerson = event => {
     event.preventDefault();
@@ -16,6 +19,10 @@ const App = () => {
       id: persons.length + 1
     };
 
+
+    /*if (input !== "") {
+      setPersons(persons.concat(personObject));
+    } */
     setPersons(persons.concat(personObject));
     setNewName("");
     setNewNumber("");
@@ -37,7 +44,15 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>filter shown with <input value={showFiltered} onChange={setShowFiltered} /></div>
+      <userListContext.Provider
+          className="user-container"
+          value={{
+            input,
+            setInput
+          }}
+        >
+      <SearchField />
+      </userListContext.Provider>
       <form onSubmit={addPerson}>
         <div>
           name is: <input value={newName} onChange={handlePersonChange} />
@@ -51,9 +66,6 @@ const App = () => {
       </form>
       <h2>Numbers</h2>
       <ul>{rows()}</ul>
-      <div>
-        debug: {newName} {newNumber}
-      </div>
     </div>
   );
 };
