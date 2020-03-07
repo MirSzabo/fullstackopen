@@ -1,6 +1,7 @@
 import React, { useState, createContext } from "react";
 import Person from "./components/Person";
 import SearchField from "./components/SearchField";
+import PersonForm from "./components/PersonForm";
 
 export const userListContext = createContext();
 
@@ -19,7 +20,6 @@ const App = () => {
       id: persons.length + 1
     };
 
-
     /*if (input !== "") {
       setPersons(persons.concat(personObject));
     } */
@@ -31,39 +31,24 @@ const App = () => {
   const rows = () =>
     persons.map(person => <Person key={person.id} person={person} />);
 
-  const handlePersonChange = event => {
-    console.log(event.target.value);
-    setNewName(event.target.value);
-  };
-
-  const handleNumberChange = event => {
-    console.log(event.target.value);
-    setNewNumber(event.target.value);
-  };
-
   return (
     <div>
       <h2>Phonebook</h2>
       <userListContext.Provider
-          className="user-container"
-          value={{
-            input,
-            setInput
-          }}
-        >
-      <SearchField />
+        className="user-container"
+        value={{
+          input,
+          setInput,
+          newName,
+          newNumber,
+          addPerson,
+          setNewNumber,
+          setNewName
+        }}
+      >
+        <SearchField />
+        <PersonForm />
       </userListContext.Provider>
-      <form onSubmit={addPerson}>
-        <div>
-          name is: <input value={newName} onChange={handlePersonChange} />
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={handleNumberChange} />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
       <h2>Numbers</h2>
       <ul>{rows()}</ul>
     </div>
