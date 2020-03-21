@@ -19,10 +19,6 @@ const App = () => {
       id: persons.length + 1
     };
 
-    /*if (input !== "") {
-      setPersons(persons.concat(personObject));
-    } */
-
     if (persons.find(element => element === newName)) {
       alert(`${newName} is already added to phonebook`);
     } else {
