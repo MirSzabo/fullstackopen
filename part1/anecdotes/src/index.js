@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 
-const App = props => {
+const App = (props) => {
   const startArray = Array(anecdotes.length).fill(0);
   const [selected, setSelected] = useState(0);
   const [votes, setVotes] = useState(startArray);
@@ -11,7 +11,7 @@ const App = props => {
   };
 
   const voteForAnecdote = () => {
-    const copy = [...votes]
+    const copy = [...votes];
     copy[selected] += 1;
     setVotes(copy);
   };
@@ -27,7 +27,7 @@ const App = props => {
       <button onClick={voteForAnecdote}>Vote</button>
       <button onClick={changeAnecdote}>Next anecdote</button>
       <h1>Anecdote with most votes</h1>
-      {( maxVotes ) ? <p>{props.anecdotes[maxVotesAnecdote]}</p>: ""}
+      {maxVotes ? <p>{props.anecdotes[maxVotesAnecdote]}</p> : ""}
     </div>
   );
 };
@@ -38,7 +38,7 @@ const anecdotes = [
   "The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.",
   "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.",
   "Premature optimization is the root of all evil.",
-  "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it."
+  "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.",
 ];
 
 ReactDOM.render(<App anecdotes={anecdotes} />, document.getElementById("root"));

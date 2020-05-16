@@ -4,21 +4,23 @@ import ReactDOM from "react-dom";
 const Button = ({ setGood, setNeutral, setBad }) => {
   return (
     <div>
-      <button onClick={() => setGood(prevCount => prevCount + 1)}>good</button>
-      <button onClick={() => setNeutral(prevCount => prevCount + 1)}>
+      <button onClick={() => setGood((prevCount) => prevCount + 1)}>
+        good
+      </button>
+      <button onClick={() => setNeutral((prevCount) => prevCount + 1)}>
         neutral
       </button>
-      <button onClick={() => setBad(prevCount => prevCount + 1)}>bad</button>
+      <button onClick={() => setBad((prevCount) => prevCount + 1)}>bad</button>
     </div>
   );
 };
 
 const Statistic = ({ text, value }) => {
   return (
-          <tr>
-            <td>{text}:</td>
-            <td>{value}</td>
-          </tr>
+    <tr>
+      <td>{text}:</td>
+      <td>{value}</td>
+    </tr>
   );
 };
 
@@ -51,13 +53,11 @@ const Table = (props) => {
   return (
     <div>
       <table>
-        <tbody>
-          {props.children}
-        </tbody>
+        <tbody>{props.children}</tbody>
       </table>
     </div>
-  )
-}
+  );
+};
 
 const App = () => {
   const [good, setGood] = useState(0);
