@@ -11,15 +11,14 @@ const App = () => {
   const [newNumber, setNewNumber] = useState("");
   const [input, setInput] = useState("");
 
-  const addPerson = event => {
+  const addPerson = (event) => {
     event.preventDefault();
     const personObject = {
       name: newName,
       number: newNumber,
-      id: persons.length + 1
     };
 
-    if (persons.find(element => element === newName)) {
+    if (persons.find((element) => element === newName)) {
       alert(`${newName} is already added to phonebook`);
     } else {
       setPersons(persons.concat(personObject));
@@ -29,7 +28,7 @@ const App = () => {
   };
 
   const rows = () =>
-    persons.map(person => <Person key={person.id} person={person} />);
+    persons.map((person) => <Person key={person.name} person={person} />);
 
   return (
     <div>
@@ -43,7 +42,7 @@ const App = () => {
           newNumber,
           addPerson,
           setNewNumber,
-          setNewName
+          setNewName,
         }}
       >
         <SearchField />
