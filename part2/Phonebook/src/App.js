@@ -1,7 +1,8 @@
-import React, { useState, createContext } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import Person from "./components/Person";
 import SearchField from "./components/SearchField";
 import PersonForm from "./components/PersonForm";
+import axios from "axios";
 
 export const userListContext = createContext();
 
@@ -10,6 +11,15 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [input, setInput] = useState("");
+
+  useEffect(() => {
+    console.log("effect");
+    axios.get("http://localhost:3001/persons").then((response) => {
+      console.log("promise fulfilled");
+      setPersons(response.data);
+    });
+  }, []);
+  console.log("render", persons.length, "persons");
 
   const addPerson = (event) => {
     event.preventDefault();
