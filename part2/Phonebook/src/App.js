@@ -11,6 +11,13 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [input, setInput] = useState("");
+  const [showAll, setShowAll] = useState(true);
+
+  const namesToShow = showAll
+    ? persons
+    : persons.filter((person) =>
+        person.name.toLowerCase().includes(input.toLowerCase())
+      );
 
   useEffect(() => {
     console.log("effect");
@@ -38,7 +45,12 @@ const App = () => {
   };
 
   const rows = () =>
-    persons.map((person) => <Person key={person.name} person={person} />);
+    namesToShow.map((person) => <Person key={person.name} person={person} />);
+
+  const handleSearch = (e) => {
+    e.target.value.length ? setShowAll(false) : setShowAll(true);
+    setInput(e.target.value);
+  };
 
   return (
     <div>
@@ -53,9 +65,10 @@ const App = () => {
           addPerson,
           setNewNumber,
           setNewName,
+          handleSearch,
         }}
       >
-        <SearchField />
+        <SearchField input={input} handleSearch={handleSearch} />
         <PersonForm />
       </userListContext.Provider>
       <h2>Numbers</h2>

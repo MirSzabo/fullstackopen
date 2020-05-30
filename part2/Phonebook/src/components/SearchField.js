@@ -2,18 +2,18 @@ import React, { useContext } from "react";
 import { userListContext } from "../App";
 
 const SearchField = () => {
-  const { input, setInput } = useContext(userListContext);
+  const { input, handleSearch } = useContext(userListContext);
+
   return (
     <>
       <form>
-          <input
-            type="text"
-            value={input}
-            placeholder="User name"
-            onChange={event => {
-              setInput(event.target.value);
-            }}
-          />
+        filter shown with
+        <input
+          type="text"
+          value={input}
+          placeholder="User name"
+          onChange={handleSearch}
+        />
       </form>
     </>
   );
