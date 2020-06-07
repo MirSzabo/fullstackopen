@@ -1,20 +1,28 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Filter from "./components/Filter";
+import ShowCountries from "./components/ShowCountries";
 
 const App = () => {
   const [countries, setCountries] = useState([]);
-
- // const filtered = countries.filter((country) => country.name.includes(query));
+  const [filter, setFilter] = useState("");
 
   useEffect(() => {
     axios.get("https://restcountries.eu/rest/v2/all").then((response) => {
-      setCountries((country) => country.concat(response.data));
+      setCountries(response.data);
     });
   }, []);
 
+  const filterHandle = (event) => setFilter(event.target.value);
+
+  const countriesInitial = countries.filter((country) =>
+    country.name.toLowerCase().includes(filter.toLowerCase())
+  );
+
   return (
     <div>
-      <h2>find countries</h2>    
+      <Filter value={filter} filterHandle={filterHandle} />
+      {countriesInitial.length > 0 && <ShowCountries countriesInitial={countriesInitial} />}
     </div>
   );
 };
