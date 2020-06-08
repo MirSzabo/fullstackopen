@@ -12,10 +12,10 @@ const Country = ({ country }) => {
 
     const api = "https://api.openweathermap.org/data/2.5/weather?q=";
     const cityName = capital.toLowerCase();
-    const key = "&appid=bf110a4174b6a1b0710d8a1165f487ca"; //deleted
+    const key = process.env.REACT_APP_API_KEY;
     const units = "&units=metric";
     const url = api + cityName + key + units;
-    console.log(url);
+    //console.log(url);
 
     axios.get(url).then((response) => {
       if (!didCancel) {

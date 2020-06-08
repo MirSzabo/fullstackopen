@@ -11,6 +11,7 @@ const ShowCountries = ({ countriesInitial }) => {
 
   const singleMatch = countries.length === 1;
   const manyMatches = countries.length > 10;
+  const noMatch = countries.length === 0;
 
   const handleCLick = (event) =>
     setCountries([
@@ -19,11 +20,13 @@ const ShowCountries = ({ countriesInitial }) => {
 
   return (
     <div>
-      {manyMatches ? (
+      {noMatch ? (
+      ''
+      ) : manyMatches ? (
         <p>Too many matches, specify another filter</p>
       ) : singleMatch ? (
         <Country country={countries[0]} />
-      ) : (
+      ): (
         <Countries countries={countries} handleClick={handleCLick} />
       )}
     </div>
