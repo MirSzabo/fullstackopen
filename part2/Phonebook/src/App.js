@@ -2,7 +2,7 @@ import React, { useState, useEffect, createContext } from "react";
 import Person from "./components/Person";
 import SearchField from "./components/SearchField";
 import PersonForm from "./components/PersonForm";
-import axios from "axios";
+import personService from "./services/persons";
 
 export const userListContext = createContext();
 
@@ -20,12 +20,9 @@ const App = () => {
       );
 
   useEffect(() => {
-    console.log("effect");
-    axios.get("http://localhost:3001/persons").then((response) => {
-      console.log("promise fulfilled");
-      setPersons(response.data);
-    });
+    personService.getAll().then((initialPersons) => setPersons(initialPersons));
   }, []);
+
   console.log("render", persons.length, "persons");
 
   const addPerson = (event) => {
