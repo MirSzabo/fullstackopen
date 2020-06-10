@@ -11,7 +11,9 @@ const PersonForm = () => {
         setNewNumber(event.target.value);
       };
   return (
-    <form onSubmit={addPerson}>
+    <div>
+      <h2>add a new</h2>
+<form onSubmit={addPerson}>
     <div>
       name is: <input value={newName} onChange={handlePersonChange} />
     </div>
@@ -22,6 +24,8 @@ const PersonForm = () => {
       <button type="submit">add</button>
     </div>
   </form>
+    </div>
+    
   )
 }
 

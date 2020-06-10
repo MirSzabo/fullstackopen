@@ -27,7 +27,17 @@ const App = () => {
 
   const addPerson = (event) => {
     event.preventDefault();
-    const personObject = {
+
+    const add = (person) => {
+      personService.create(person).then((returnedPerson) => {
+        setPersons(persons.concat(returnedPerson));
+        //resetFields();
+
+        // displayNotification('success', `Added ${person.name}`);
+      });
+    };
+
+    /* const personObject = {
       name: newName,
       number: newNumber,
     };
@@ -38,7 +48,7 @@ const App = () => {
       setPersons(persons.concat(personObject));
       setNewName("");
       setNewNumber("");
-    }
+    } */
   };
 
   const rows = () =>
