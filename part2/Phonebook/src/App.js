@@ -3,11 +3,12 @@ import Person from "./components/Person";
 import SearchField from "./components/SearchField";
 import PersonForm from "./components/PersonForm";
 import personService from "./services/persons";
+import axios from "axios";
 
 export const userListContext = createContext();
 
 const App = () => {
-  const [persons, setPersons] = useState([{ name: "Arto Hellas" }]);
+  const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [input, setInput] = useState("");
@@ -20,24 +21,17 @@ const App = () => {
       );
 
   useEffect(() => {
-    personService.getAll().then((initialPersons) => setPersons(initialPersons));
+    console.log("effect");
+    axios.get("http://localhost:3001/persons").then((response) => {
+      console.log("promise fulfilled");
+      setPersons(response.data);
+    });
   }, []);
-
   console.log("render", persons.length, "persons");
 
   const addPerson = (event) => {
     event.preventDefault();
-
-    const add = (person) => {
-      personService.create(person).then((returnedPerson) => {
-        setPersons(persons.concat(returnedPerson));
-        //resetFields();
-
-        // displayNotification('success', `Added ${person.name}`);
-      });
-    };
-
-    /* const personObject = {
+    const personObject = {
       name: newName,
       number: newNumber,
     };
@@ -48,15 +42,25 @@ const App = () => {
       setPersons(persons.concat(personObject));
       setNewName("");
       setNewNumber("");
-    } */
+    }
   };
 
   const rows = () =>
-    namesToShow.map((person) => <Person key={person.name} person={person} />);
+  namesToShow.map((person) => (
+    <Person key={person.name} person={person} onRemove={removePerson} />
+  ));
 
   const handleSearch = (e) => {
     e.target.value.length ? setShowAll(false) : setShowAll(true);
     setInput(e.target.value);
+  };
+
+  const removePerson = (id, name) => () => {
+    if (window.confirm(`Delete ${name}?`)) {
+      personService.remove(id).then(() => {
+        setPersons(persons.filter((person) => person.id !== id));
+      });
+    }
   };
 
   return (
