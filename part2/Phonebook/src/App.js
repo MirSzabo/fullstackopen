@@ -21,9 +21,7 @@ const App = () => {
       );
 
   useEffect(() => {
-    console.log("effect");
     axios.get("http://localhost:3001/persons").then((response) => {
-      console.log("promise fulfilled");
       setPersons(response.data);
     });
   }, []);
@@ -39,16 +37,21 @@ const App = () => {
     if (persons.find((element) => element.name === newName)) {
       alert(`${newName} is already added to phonebook`);
     } else {
-      setPersons(persons.concat(personObject));
-      setNewName("");
-      setNewNumber("");
+      axios
+        .post("http://localhost:3001/persons", personObject)
+        .then((response) => {
+          console.log(response);
+          setPersons(persons.concat(response.data));
+          setNewName("");
+          setNewNumber("");
+        });
     }
   };
 
   const rows = () =>
-  namesToShow.map((person) => (
-    <Person key={person.name} person={person} onRemove={removePerson} />
-  ));
+    namesToShow.map((person) => (
+      <Person key={person.name} person={person} onRemove={removePerson} />
+    ));
 
   const handleSearch = (e) => {
     e.target.value.length ? setShowAll(false) : setShowAll(true);
