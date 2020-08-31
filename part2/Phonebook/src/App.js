@@ -2,6 +2,7 @@ import React, { useState, useEffect, createContext } from "react";
 import Person from "./components/Person";
 import SearchField from "./components/SearchField";
 import PersonForm from "./components/PersonForm";
+import Notification from "./components/Notification";
 import personService from "./services/persons";
 
 export const userListContext = createContext();
@@ -12,6 +13,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState("");
   const [input, setInput] = useState("");
   const [showAll, setShowAll] = useState(true);
+  const [message, setMessage] = useState({ text: "", type: null });
 
   const namesToShow = showAll
     ? persons
@@ -24,6 +26,13 @@ const App = () => {
       setPersons(initPerson);
     });
   }, []);
+
+  const displayMessage = (type, text) => {
+    setMessage({ type, text });
+    setTimeout(() => {
+      setMessage({ text: "", type: null });
+    }, 3000);
+  };
 
   const addPerson = (event) => {
     event.preventDefault();
@@ -39,6 +48,7 @@ const App = () => {
         setPersons(persons.concat(returnedPerson));
         setNewName("");
         setNewNumber("");
+        displayMessage("success", `Added ${newName}`);
       });
     }
   };
@@ -57,6 +67,7 @@ const App = () => {
     if (window.confirm(`Delete ${name}?`)) {
       personService.remove(id).then(() => {
         setPersons(persons.filter((person) => person.id !== id));
+        displayMessage("error", `Removed ${name}`);
       });
     }
   };
@@ -75,9 +86,13 @@ const App = () => {
           setNewNumber,
           setNewName,
           handleSearch,
+          setMessage,
         }}
       >
-        <SearchField input={input} handleSearch={handleSearch} />
+        {message.text && (
+          <Notification message={message.text} type={message.type} />
+        )}
+        <SearchField />
         <PersonForm />
       </userListContext.Provider>
       <h2>Numbers</h2>
