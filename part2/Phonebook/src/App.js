@@ -67,7 +67,7 @@ const App = () => {
     if (window.confirm(`Delete ${name}?`)) {
       personService.remove(id).then(() => {
         setPersons(persons.filter((person) => person.id !== id));
-        displayMessage("error", `Removed ${name}`);
+        displayMessage("success", `Removed ${name}`);
       });
     }
   };
